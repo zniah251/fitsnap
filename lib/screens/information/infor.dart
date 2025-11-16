@@ -50,6 +50,40 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     'Dự tiệc / dịp đặc biệt',
   ];
 
+  // --- THÊM PHẦN NÀY ---
+  @override
+  void initState() {
+    super.initState();
+    // Thêm listener cho các controller để cập nhật UI khi người dùng nhập
+    ageController.addListener(_onInputChanged);
+    heightController.addListener(_onInputChanged);
+    weightController.addListener(_onInputChanged);
+    jobController.addListener(_onInputChanged);
+  }
+
+  @override
+  void dispose() {
+    // Gỡ listener và huỷ controller khi widget bị huỷ
+    ageController.removeListener(_onInputChanged);
+    heightController.removeListener(_onInputChanged);
+    weightController.removeListener(_onInputChanged);
+    jobController.removeListener(_onInputChanged);
+
+    ageController.dispose();
+    heightController.dispose();
+    weightController.dispose();
+    jobController.dispose();
+    super.dispose();
+  }
+
+  // Hàm này gọi setState để rebuild UI, kích hoạt lại _canProceed()
+  void _onInputChanged() {
+    setState(() {
+      // Không cần làm gì cụ thể, chỉ cần trigger rebuild
+    });
+  }
+  // --- KẾT THÚC PHẦN THÊM ---
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -495,13 +529,16 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     );
   }
 
+  // --- SỬA HÀM NÀY ---
   bool _canProceed() {
     switch (currentStep) {
       case 0:
+        // Thêm kiểm tra jobController.text.isNotEmpty
         return selectedGender != null &&
             ageController.text.isNotEmpty &&
             heightController.text.isNotEmpty &&
-            weightController.text.isNotEmpty;
+            weightController.text.isNotEmpty &&
+            jobController.text.isNotEmpty; // <-- Đã thêm
       case 1:
         return selectedStyles.isNotEmpty;
       case 2:
@@ -512,6 +549,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         return false;
     }
   }
+  // --- KẾT THÚC PHẦN SỬA ---
 
   void _handleNext() {
     if (!_canProceed()) {

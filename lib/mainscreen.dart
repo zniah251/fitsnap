@@ -1,6 +1,7 @@
 import 'package:fitsnap/navbar.dart';
 import 'package:fitsnap/screens/calendar/calendar.dart';
 import 'package:fitsnap/screens/home/home_screen.dart';
+import 'package:fitsnap/screens/profile/profile.dart';
 import 'package:fitsnap/screens/virtual_try-on/insert.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
     const CalendarScreen(),
     const InsertScreen(),
     const Center(child: Text('Shuffle Screen')),
-    const Center(child: Text('Profile Screen')),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
