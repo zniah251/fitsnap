@@ -13,7 +13,7 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
-        Navigator.of(context).pushReplacementNamed('/signup_page');
+        Navigator.of(context).pushReplacementNamed('/signin_page');
       }
     });
   }

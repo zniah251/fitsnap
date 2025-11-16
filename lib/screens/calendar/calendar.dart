@@ -188,7 +188,7 @@ class CalendarScreen extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(12),
                                     child: Image.asset(
-                                      'image/item/item_${i + 1}.jpg',
+                                      'image/item/item_${i + 1}.png',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -209,7 +209,7 @@ class CalendarScreen extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(12),
                                     child: Image.asset(
-                                      'image/item/item_${i + 4}.jpg',
+                                      'image/item/item_${i + 4}.png',
                                       fit: BoxFit.cover,
                                     ),
                                   ),

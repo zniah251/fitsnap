@@ -95,7 +95,7 @@ class _TryOnScreenState extends State<TryOnScreen> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: Image.asset(
-                          'image/item/item_${index + 1}.jpg',
+                          'image/item/item_${index + 1}.png',
                           fit: BoxFit.contain,
                           errorBuilder: (context, error, stackTrace) {
                             return Container(

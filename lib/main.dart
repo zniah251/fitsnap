@@ -1,9 +1,12 @@
+import 'package:fitsnap/screens/information/infor.dart';
+import 'package:fitsnap/screens/signup/signin.dart';
+import 'package:fitsnap/screens/signup/signup.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fitsnap/mainscreen.dart';
 import 'package:fitsnap/screens/home/home_screen.dart';
 import 'package:fitsnap/screens/home/splash_screen.dart';
-import 'package:fitsnap/screens/signup/signup_page.dart';
+
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -47,7 +50,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/main': (context) => const MainScreen(),
         '/home': (context) => const HomeScreen(),
-        '/signup_page': (context) => const SignUpPageScreen(),
+        '/signup_page': (context) => const SignUpScreen(),
+        '/signin_page': (context) => const SignInScreen(),
+        '/infor': (context) => const ProfileSetupScreen(),
       },
     );
   }

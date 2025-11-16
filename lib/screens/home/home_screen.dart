@@ -1,3 +1,4 @@
+import 'package:fitsnap/screens/scan/scan.dart';
 import 'package:flutter/material.dart';
 import 'package:fitsnap/screens/wardrobe/wardrobe.dart';
 
@@ -97,13 +98,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+
             const SizedBox(height: 20),
+
+            // ─────────────────────────────────────────────
+            // WARDROBE / SAVED / ADD / QR CARDS
+            // ─────────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
                   Expanded(
-                    flex: 4, // Tăng flex để ô rộng hơn
+                    flex: 4,
                     child: _buildStatCard(
                       'Wardrobe',
                       '80',
@@ -113,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    flex: 4, // Tăng flex để ô rộng hơn
+                    flex: 4,
                     child: _buildStatCard(
                       'Saved',
                       '37',
@@ -122,8 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 12),
+
+                  // ADD + QR COLUMN
                   Expanded(
-                    flex: 3, // Giảm flex để ô nhỏ hơn
+                    flex: 3,
                     child: SizedBox(
                       height: 125,
                       child: Column(
@@ -147,19 +155,29 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(height: 8),
                           Expanded(
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: lightPurple,
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(12),
-                                  bottomRight: Radius.circular(12),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ScanScreen(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: lightPurple,
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(12),
+                                    bottomRight: Radius.circular(12),
+                                  ),
                                 ),
-                              ),
-                              child: const Icon(
-                                Icons.qr_code_scanner,
-                                size: 24,
-                                color: accentPurple,
+                                child: const Icon(
+                                  Icons.qr_code_scanner,
+                                  size: 24,
+                                  color: accentPurple,
+                                ),
                               ),
                             ),
                           ),
@@ -170,8 +188,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+
             const SizedBox(height: 24),
-            // Your outfits today section
+
+            // ─────────────────────────────────────────────
+            // OUTFITS TODAY
+            // ─────────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
@@ -189,34 +211,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 12),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SizedBox(
-                height: 170, // Set chiều cao cố định cho container cha
+                height: 170,
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 1,
                       child: _buildOutfitCard(
-                        'image/item/item_1.jpg',
+                        'image/item/item_1.png',
                         double.infinity,
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      flex: 1,
                       child: Column(
                         children: [
                           Expanded(
                             child: _buildOutfitCard(
-                              'image/item/item_2.jpg',
+                              'image/item/item_2.png',
                               double.infinity,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Expanded(
                             child: _buildOutfitCard(
-                              'image/item/item_3.jpg',
+                              'image/item/item_3.png',
                               double.infinity,
                             ),
                           ),
@@ -225,9 +246,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      flex: 1,
                       child: _buildOutfitCard(
-                        'image/item/item_4.jpg',
+                        'image/item/item_4.png',
                         double.infinity,
                       ),
                     ),
@@ -235,8 +255,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+
             const SizedBox(height: 24),
-            // Recommend section
+
+            // ─────────────────────────────────────────────
+            // RECOMMEND
+            // ─────────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: const Text(
@@ -245,34 +269,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 12),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SizedBox(
-                height: 170, // Set chiều cao cố định cho container cha
+                height: 170,
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 1,
                       child: _buildProductCard(
-                        'image/item/item_1.jpg',
+                        'image/item/item_1.png',
                         double.infinity,
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      flex: 1,
                       child: Column(
                         children: [
                           Expanded(
                             child: _buildProductCard(
-                              'image/item/item_2.jpg',
+                              'image/item/item_2.png',
                               double.infinity,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Expanded(
                             child: _buildProductCard(
-                              'image/item/item_4.jpg',
+                              'image/item/item_4.png',
                               double.infinity,
                             ),
                           ),
@@ -281,9 +304,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      flex: 1,
                       child: _buildProductCard(
-                        'image/item/item_5.jpg',
+                        'image/item/item_5.png',
                         double.infinity,
                       ),
                     ),
@@ -291,6 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+
             const SizedBox(height: 24),
           ],
         ),
@@ -324,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Thay đổi height của stat cards
+  // WARDROBE CARD
   Widget _buildStatCard(
     String title,
     String number,
@@ -341,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: Container(
-        height: 125, // Increased from 110 to 125 to accommodate content
+        height: 125,
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: lightPurple,
@@ -354,7 +377,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Icon(icon, size: 24, color: accentPurple),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min, // Add this to prevent expansion
               children: [
                 Text(
                   title,
@@ -364,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.black87,
                   ),
                 ),
-                const SizedBox(height: 2), // Reduced from 4
+                const SizedBox(height: 2),
                 Text(
                   number,
                   style: const TextStyle(
@@ -394,7 +416,7 @@ class _HomeScreenState extends State<HomeScreen> {
         border: Border.all(color: lightPurple, width: 3),
       ),
       child: AspectRatio(
-        aspectRatio: 0.2, // Giảm từ 0.7 xuống 0.6 để tăng chiều cao
+        aspectRatio: 0.2,
         child: Image.asset(
           imagePath,
           fit: BoxFit.cover,
@@ -418,7 +440,7 @@ class _HomeScreenState extends State<HomeScreen> {
         border: Border.all(color: lightPurple, width: 3),
       ),
       child: AspectRatio(
-        aspectRatio: 0.2, // Giảm từ 0.7 xuống 0.6 để tăng chiều cao
+        aspectRatio: 0.2,
         child: Image.asset(
           imagePath,
           fit: BoxFit.cover,

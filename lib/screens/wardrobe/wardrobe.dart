@@ -247,7 +247,7 @@ class WardrobeScreenState extends State<WardrobeScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.asset(
-                    'image/item/item_${index + 1}.jpg',
+                    'image/item/item_${index + 1}.png',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return const Center(
