@@ -15,20 +15,20 @@ class _ScanScreenState extends State<ScanScreen> {
   bool _isLoading = false;
   bool _isAnalyzed = false;
 
-  // Mock data - sẽ được thay thế bằng dữ liệu từ API/Gemini
+  // Mock data - will be replaced by data from API/Gemini
   final Map<String, String> _itemData = {
-    'name': 'Áo Sơ Mi Oxford',
-    'category': 'Áo',
-    'type': 'Sơ mi',
-    'color': 'Xanh navy',
+    'name': 'Oxford Shirt',
+    'category': 'Top',
+    'type': 'Shirt',
+    'color': 'Navy Blue',
     'material': 'Cotton Oxford',
-    'pattern': 'Trơn',
+    'pattern': 'Solid',
     'style': 'Formal',
     'season': 'All Season',
-    'gender': 'Nam',
+    'gender': 'Male',
     'fit': 'Slim fit',
     'description':
-        'Áo sơ mi Oxford chất liệu cotton cao cấp, thiết kế thanh lịch phù hợp cho môi trường công sở. Có thể kết hợp với quần tây hoặc chinos.',
+        'High-quality cotton Oxford shirt, elegant design suitable for the office. Can be paired with trousers or chinos.',
   };
 
   static const Color lightPurple = Color(0xFFEDE4FF);
@@ -57,7 +57,7 @@ class _ScanScreenState extends State<ScanScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Không thể chọn ảnh. Vui lòng thử lại.'),
+          content: Text('Failed to pick image. Please try again.'),
           duration: Duration(seconds: 2),
         ),
       );
@@ -80,7 +80,7 @@ class _ScanScreenState extends State<ScanScreen> {
     // TODO: Implement save to wardrobe functionality
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Đã lưu vào tủ đồ!'),
+        content: Text('Saved to wardrobe!'),
         backgroundColor: accentPurple,
         duration: Duration(seconds: 2),
       ),
@@ -136,7 +136,7 @@ class _ScanScreenState extends State<ScanScreen> {
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            'Chụp hoặc chọn ảnh quần áo',
+                            'Take or select a photo of clothing',
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black.withOpacity(0.6),
@@ -187,7 +187,7 @@ class _ScanScreenState extends State<ScanScreen> {
                         color: accentPurple,
                       ),
                       label: Text(
-                        _image == null ? 'Chọn ảnh' : 'Đổi ảnh',
+                        _image == null ? 'Select Image' : 'Change Image',
                         style: const TextStyle(
                           fontSize: 16,
                           color: accentPurple,
@@ -213,7 +213,7 @@ class _ScanScreenState extends State<ScanScreen> {
                           color: Colors.white,
                         ),
                         label: const Text(
-                          'Phân tích',
+                          'Analyze',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
@@ -270,7 +270,7 @@ class _ScanScreenState extends State<ScanScreen> {
                         ),
                         const SizedBox(width: 12),
                         const Text(
-                          'Kết quả phân tích',
+                          'Analysis Results',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -314,7 +314,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               ),
                               SizedBox(width: 8),
                               Text(
-                                'Mô tả',
+                                'Description',
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -344,7 +344,7 @@ class _ScanScreenState extends State<ScanScreen> {
                         onPressed: saveToWardrobe,
                         icon: const Icon(Icons.checkroom, color: Colors.white),
                         label: const Text(
-                          'Lưu vào tủ đồ',
+                          'Save to Wardrobe',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
@@ -375,28 +375,28 @@ class _ScanScreenState extends State<ScanScreen> {
     final items = [
       {
         'icon': Icons.category,
-        'label': 'Loại',
+        'label': 'Category',
         'value': _itemData['category']!,
       },
-      {'icon': Icons.style, 'label': 'Kiểu', 'value': _itemData['type']!},
-      {'icon': Icons.palette, 'label': 'Màu sắc', 'value': _itemData['color']!},
+      {'icon': Icons.style, 'label': 'Type', 'value': _itemData['type']!},
+      {'icon': Icons.palette, 'label': 'Color', 'value': _itemData['color']!},
       {
         'icon': Icons.texture,
-        'label': 'Chất liệu',
+        'label': 'Material',
         'value': _itemData['material']!,
       },
       {
         'icon': Icons.pattern,
-        'label': 'Họa tiết',
+        'label': 'Pattern',
         'value': _itemData['pattern']!,
       },
-      {'icon': Icons.star, 'label': 'Phong cách', 'value': _itemData['style']!},
-      {'icon': Icons.wb_sunny, 'label': 'Mùa', 'value': _itemData['season']!},
+      {'icon': Icons.star, 'label': 'Style', 'value': _itemData['style']!},
       {
-        'icon': Icons.person,
-        'label': 'Giới tính',
-        'value': _itemData['gender']!,
+        'icon': Icons.wb_sunny,
+        'label': 'Season',
+        'value': _itemData['season']!,
       },
+      {'icon': Icons.person, 'label': 'Gender', 'value': _itemData['gender']!},
       {'icon': Icons.straighten, 'label': 'Fit', 'value': _itemData['fit']!},
     ];
 

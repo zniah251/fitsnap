@@ -14,9 +14,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  // --- DỮ LIỆU CÓ SẴN ---
+  // --- EXISTING DATA ---
   final TextEditingController nameController = TextEditingController(
-    text: 'Bao Chau',
+    text: 'Bao Chau', // Kept as it is a proper name
   );
   final TextEditingController ageController = TextEditingController(text: '25');
   final TextEditingController heightController = TextEditingController(
@@ -26,20 +26,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     text: '55',
   );
   final TextEditingController jobController = TextEditingController(
-    text: 'Nhân viên văn phòng',
+    text: 'Office Worker', // Translated
   );
-  String selectedGender = 'Nữ';
+  String selectedGender = 'Female'; // Translated
 
-  // --- DỮ LIỆU MỚI ĐƯỢC THÊM ---
-  // (Giả lập dữ liệu đã chọn của người dùng)
-  List<String> selectedStyles = ['Casual', 'Minimalist'];
-  List<String> selectedColors = ['Đen', 'Trắng', 'Be'];
+  // --- NEWLY ADDED DATA ---
+  // (Simulating user's selected data)
+  List<String> selectedStyles = ['Casual', 'Minimalist']; // Already English
+  List<String> selectedColors = ['Black', 'White', 'Beige']; // Translated
   List<String> selectedPurposes = [
-    'Đi làm / công sở',
-    'Đi học / đi chơi hàng ngày',
+    'Work / Office', // Translated
+    'Daily / Casual Outing', // Translated
   ];
 
-  // Danh sách các lựa chọn (sao chép từ ProfileSetupScreen)
+  // List of options
   final List<String> styles = [
     'Casual',
     'Formal',
@@ -50,23 +50,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   ];
 
   final List<Map<String, dynamic>> colors = [
-    {'name': 'Đen', 'color': Colors.black},
-    {'name': 'Trắng', 'color': Colors.white},
-    {'name': 'Xanh dương', 'color': Colors.blue},
-    {'name': 'Nâu', 'color': Colors.brown},
-    {'name': 'Pastel', 'color': Color(0xFFFFB6C1)},
-    {'name': 'Xám', 'color': Colors.grey},
-    {'name': 'Be', 'color': Color(0xFFF5F5DC)},
-    {'name': 'Xanh lá', 'color': Colors.green},
+    {'name': 'Black', 'color': Colors.black}, // Translated
+    {'name': 'White', 'color': Colors.white}, // Translated
+    {'name': 'Blue', 'color': Colors.blue}, // Translated
+    {'name': 'Brown', 'color': Colors.brown}, // Translated
+    {'name': 'Pastel', 'color': Color(0xFFFFB6C1)}, // Translated
+    {'name': 'Grey', 'color': Colors.grey}, // Translated
+    {'name': 'Beige', 'color': Color(0xFFF5F5DC)}, // Translated
+    {'name': 'Green', 'color': Colors.green}, // Translated
   ];
 
   final List<String> purposes = [
-    'Đi làm / công sở',
-    'Đi học / đi chơi hàng ngày',
-    'Thể thao / tập gym',
-    'Dự tiệc / dịp đặc biệt',
+    'Work / Office', // Translated
+    'Daily / Casual Outing', // Translated
+    'Sports / Gym', // Translated
+    'Party / Special Event', // Translated
   ];
-  // --- KẾT THÚC PHẦN THÊM MỚI ---
+  // --- END OF NEW ADDITIONS ---
 
   @override
   void dispose() {
@@ -90,7 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Chỉnh sửa hồ sơ',
+          'Edit Profile', // Translated
           style: TextStyle(color: primaryPurple, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -129,7 +129,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         onTap: () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Đổi ảnh đại diện'),
+                              content: Text(
+                                'Change profile picture',
+                              ), // Translated
                               backgroundColor: accentPurple,
                             ),
                           );
@@ -156,16 +158,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
               // Name
               _buildTextField(
-                'Họ và tên',
+                'Full Name', // Translated
                 nameController,
-                'Nhập họ và tên',
+                'Enter your full name', // Translated
                 Icons.person_outline,
               ),
               const SizedBox(height: 16),
 
               // Gender
               const Text(
-                'Giới tính',
+                'Gender', // Translated
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -175,20 +177,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  Expanded(child: _buildGenderCard('Nam', Icons.male)),
+                  Expanded(
+                    child: _buildGenderCard('Male', Icons.male),
+                  ), // Translated
                   const SizedBox(width: 12),
-                  Expanded(child: _buildGenderCard('Nữ', Icons.female)),
+                  Expanded(
+                    child: _buildGenderCard('Female', Icons.female),
+                  ), // Translated
                   const SizedBox(width: 12),
-                  Expanded(child: _buildGenderCard('Khác', Icons.more_horiz)),
+                  Expanded(
+                    child: _buildGenderCard('Other', Icons.more_horiz),
+                  ), // Translated
                 ],
               ),
               const SizedBox(height: 16),
 
               // Age
               _buildTextField(
-                'Tuổi',
+                'Age', // Translated
                 ageController,
-                'Nhập tuổi',
+                'Enter your age', // Translated
                 Icons.cake,
                 isNumber: true,
               ),
@@ -199,9 +207,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   Expanded(
                     child: _buildTextField(
-                      'Chiều cao (cm)',
+                      'Height (cm)', // Translated
                       heightController,
-                      'VD: 165',
+                      'e.g., 165', // Translated
                       Icons.height,
                       isNumber: true,
                     ),
@@ -209,9 +217,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: _buildTextField(
-                      'Cân nặng (kg)',
+                      'Weight (kg)', // Translated
                       weightController,
-                      'VD: 55',
+                      'e.g., 55', // Translated
                       Icons.monitor_weight,
                       isNumber: true,
                     ),
@@ -222,16 +230,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
               // Job
               _buildTextField(
-                'Nghề nghiệp',
+                'Occupation', // Translated
                 jobController,
-                'VD: Sinh viên',
+                'e.g., Student', // Translated
                 Icons.work,
               ),
               const SizedBox(height: 24),
 
-              // --- PHẦN MỚI THÊM: PHONG CÁCH ---
+              // --- NEW SECTION: STYLES ---
               const Text(
-                'Phong cách yêu thích',
+                'Favorite Styles', // Translated
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -248,9 +256,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               const SizedBox(height: 24),
 
-              // --- PHẦN MỚI THÊM: MÀU SẮC ---
+              // --- NEW SECTION: COLORS ---
               const Text(
-                'Màu sắc yêu thích (chọn tối đa 3)',
+                'Favorite Colors (select up to 3)', // Translated
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -258,12 +266,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              _buildColorGrid(), // Hàm mới để build lưới màu
+              _buildColorGrid(), // New function to build color grid
               const SizedBox(height: 24),
 
-              // --- PHẦN MỚI THÊM: MỤC ĐÍCH ---
+              // --- NEW SECTION: PURPOSES ---
               const Text(
-                'Mục đích mặc',
+                'Wearing Purposes', // Translated
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -273,7 +281,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               const SizedBox(height: 12),
               ...purposes.map((purpose) => _buildPurposeCard(purpose)).toList(),
               const SizedBox(height: 32),
-              // --- KẾT THÚC PHẦN THÊM MỚI ---
+              // --- END OF NEW ADDITIONS ---
 
               // Save Button
               SizedBox(
@@ -288,7 +296,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: const Text(
-                    'Lưu thay đổi',
+                    'Save Changes', // Translated
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -352,7 +360,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
-              return 'Vui lòng không để trống trường này';
+              return 'This field is required'; // Translated
             }
             return null;
           },
@@ -397,13 +405,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  // --- HÀM MỚI THÊM: BUILD LƯỚI MÀU ---
+  // --- NEW FUNCTION: BUILD COLOR GRID ---
   Widget _buildColorGrid() {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 5, // Hiển thị 5 cột cho gọn
+        crossAxisCount: 5, // Display 5 columns
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
         childAspectRatio: 0.8,
@@ -418,12 +426,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               if (isSelected) {
                 selectedColors.remove(colorItem['name']);
               } else if (selectedColors.length < 3) {
-                // Vẫn giữ logic giới hạn 3 màu
+                // Keep the 3-color limit logic
                 selectedColors.add(colorItem['name']);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Chỉ được chọn tối đa 3 màu'),
+                    content: Text(
+                      'You can only select up to 3 colors',
+                    ), // Translated
                     backgroundColor: Colors.redAccent,
                   ),
                 );
@@ -433,7 +443,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Column(
             children: [
               Container(
-                width: 50, // Giảm kích thước 1 chút
+                width: 50, // Slightly smaller size
                 height: 50,
                 decoration: BoxDecoration(
                   color: colorItem['color'],
@@ -451,7 +461,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               Text(
                 colorItem['name'],
                 style: TextStyle(
-                  fontSize: 11, // Chữ nhỏ hơn
+                  fontSize: 11, // Smaller font
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   color: isSelected ? primaryPurple : Colors.black87,
                 ),
@@ -466,7 +476,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  // --- HÀM MỚI THÊM: BUILD STYLE CHIP ---
+  // --- NEW FUNCTION: BUILD STYLE CHIP ---
   Widget _buildStyleChip(String style) {
     final isSelected = selectedStyles.contains(style);
     return GestureDetector(
@@ -501,7 +511,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  // --- HÀM MỚI THÊM: BUILD PURPOSE CARD ---
+  // --- NEW FUNCTION: BUILD PURPOSE CARD ---
   Widget _buildPurposeCard(String purpose) {
     final isSelected = selectedPurposes.contains(purpose);
     return GestureDetector(
@@ -560,7 +570,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _saveProfile() {
-    // Thêm validation cho các trường TextFormField
+    // Add validation for TextFormField fields
     if (_formKey.currentState!.validate()) {
       final updatedData = {
         'name': nameController.text,
@@ -569,7 +579,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         'height': heightController.text,
         'weight': weightController.text,
         'job': jobController.text,
-        // --- CẬP NHẬT DỮ LIỆU LƯU ---
+        // --- UPDATE SAVED DATA ---
         'styles': selectedStyles,
         'colors': selectedColors,
         'purposes': selectedPurposes,
@@ -580,12 +590,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Đã lưu thay đổi!'),
+          content: Text('Changes saved!'), // Translated
           backgroundColor: accentPurple,
         ),
       );
 
-      Navigator.pop(context, true); // Trả về true để màn hình Profile biết
+      Navigator.pop(context, true); // Return true so the Profile screen knows
     }
   }
 }

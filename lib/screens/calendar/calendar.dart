@@ -6,6 +6,7 @@ class CalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // This mock data is already in English
     final days = [
       {'month': 'May', 'day': '23', 'label': 'Fri'},
       {'month': 'May', 'day': '24', 'label': 'Sat'},
@@ -18,10 +19,10 @@ class CalendarScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'Lịch Phối Đồ',
+          'Outfit Calendar', // Translated
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color(0xFF7559D9), // 💜 màu tím
+            color: Color(0xFF7559D9), // 💜 purple color
           ),
         ),
         backgroundColor: Colors.white,
@@ -38,7 +39,7 @@ class CalendarScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            // 🗓️ Tháng + Ngày
+            // 🗓️ Month + Day
             const Align(
               alignment: Alignment.centerLeft,
               child: Padding(padding: EdgeInsets.only(bottom: 4, left: 4)),
@@ -74,7 +75,6 @@ class CalendarScreen extends StatelessWidget {
                             item['month'] as String,
                             style: TextStyle(
                               fontSize: 14,
-
                               color: selected ? Colors.white : Colors.black,
                             ),
                           ),
@@ -102,7 +102,7 @@ class CalendarScreen extends StatelessWidget {
 
             const SizedBox(height: 8),
 
-            // 🔘 Nút chế độ xem full chiều ngang
+            // 🔘 Full-width view buttons
             Row(
               children: [
                 Expanded(
@@ -116,7 +116,7 @@ class CalendarScreen extends StatelessWidget {
                     ),
                     onPressed: () {},
                     child: const Text(
-                      'Xem theo tuần',
+                      'Weekly View', // Translated
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -133,7 +133,7 @@ class CalendarScreen extends StatelessWidget {
                     ),
                     onPressed: () {},
                     child: const Text(
-                      'Xem theo tháng',
+                      'Monthly View', // Translated
                       style: TextStyle(color: Color(0xFF7559D9)),
                     ),
                   ),
@@ -143,12 +143,12 @@ class CalendarScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 👕 Gợi ý trang phục (nền be, 5 ảnh)
+            // 👕 Outfit suggestion (beige bg, 5 images)
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFFF5F1E8), // 🩶 nền be
+                color: const Color(0xFFF5F1E8), // 🩶 beige bg
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Column(
@@ -158,14 +158,14 @@ class CalendarScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
-                        'Gợi ý trang phục',
+                        'Suggested Outfit', // Translated
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Chip(
-                        label: Text('Done'),
+                        label: Text('Done'), // Already English
                         backgroundColor: Color(0xFFEDE7FF),
                       ),
                     ],
@@ -174,10 +174,10 @@ class CalendarScreen extends StatelessWidget {
                   AspectRatio(
                     aspectRatio:
                         4 /
-                        3, // tuỳ chỉnh tỉ lệ khung (cao hơn = tăng giá trị sau dấu /)
+                        3, // adjust frame ratio (higher = increase value after /)
                     child: Row(
                       children: [
-                        // Cột trái: 3 ảnh
+                        // Left col: 3 images
                         Expanded(
                           flex: 3,
                           child: Column(
@@ -198,7 +198,7 @@ class CalendarScreen extends StatelessWidget {
                           ),
                         ),
 
-                        // Cột phải: 2 ảnh
+                        // Right col: 2 images
                         Expanded(
                           flex: 2,
                           child: Column(
@@ -227,7 +227,7 @@ class CalendarScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 🕒 Thông tin sự kiện
+            // 🕒 Event info
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -251,14 +251,17 @@ class CalendarScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
-                          'How to pitch a Design Sprint',
+                          'How to pitch a Design Sprint', // Already English
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                           ),
                         ),
                         SizedBox(height: 4),
-                        Text('09:00 PM', style: TextStyle(color: Colors.grey)),
+                        Text(
+                          '09:00 PM',
+                          style: TextStyle(color: Colors.grey),
+                        ), // Already English
                       ],
                     ),
                   ),
@@ -272,7 +275,7 @@ class CalendarScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Text(
-                      'To-do',
+                      'To-do', // Already English
                       style: TextStyle(color: Color(0xFF7559D9)),
                     ),
                   ),

@@ -70,7 +70,7 @@ class WardrobeScreenState extends State<WardrobeScreen> {
                           ),
                         ),
                         const Text(
-                          'Tủ Đồ Ảo',
+                          'Virtual Wardrobe',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:convert'; // Import để sử dụng jsonEncode
+import 'dart:convert'; // Import for jsonEncode
 
 class ProfileSetupScreen extends StatefulWidget {
-  final Map<String, dynamic> signUpData; // Nhận dữ liệu từ SignUp
+  final Map<String, dynamic> signUpData; // Receive data from SignUp
 
   const ProfileSetupScreen({super.key, required this.signUpData});
 
@@ -17,7 +17,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
 
   String? selectedGender;
   int currentStep = 0;
-  final TextEditingController ageController = TextEditingController();
+
   final TextEditingController heightController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
   final TextEditingController jobController = TextEditingController();
@@ -36,27 +36,26 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   ];
 
   final List<Map<String, dynamic>> colors = [
-    {'name': 'Đen', 'color': Colors.black},
-    {'name': 'Trắng', 'color': Colors.white},
-    {'name': 'Xanh dương', 'color': Colors.blue},
-    {'name': 'Nâu', 'color': Colors.brown},
-    {'name': 'Pastel', 'color': Color(0xFFFFB6C1)},
-    {'name': 'Xám', 'color': Colors.grey},
-    {'name': 'Be', 'color': Color(0xFFF5F5DC)},
-    {'name': 'Xanh lá', 'color': Colors.green},
+    {'name': 'Black', 'color': Colors.black}, // Translated
+    {'name': 'White', 'color': Colors.white}, // Translated
+    {'name': 'Blue', 'color': Colors.blue}, // Translated
+    {'name': 'Brown', 'color': Colors.brown}, // Translated
+    {'name': 'Pastel', 'color': Color(0xFFFFB6C1)}, // Translated
+    {'name': 'Grey', 'color': Colors.grey}, // Translated
+    {'name': 'Beige', 'color': Color(0xFFF5F5DC)}, // Translated
+    {'name': 'Green', 'color': Colors.green}, // Translated
   ];
 
   final List<String> purposes = [
-    'Đi làm / công sở',
-    'Đi học / đi chơi hàng ngày',
-    'Thể thao / tập gym',
-    'Dự tiệc / dịp đặc biệt',
+    'Work / Office', // Translated
+    'School / Daily Outing', // Translated
+    'Sports / Gym', // Translated
+    'Party / Special Event', // Translated
   ];
 
   @override
   void initState() {
     super.initState();
-    ageController.addListener(_onInputChanged);
     heightController.addListener(_onInputChanged);
     weightController.addListener(_onInputChanged);
     jobController.addListener(_onInputChanged);
@@ -64,12 +63,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
 
   @override
   void dispose() {
-    ageController.removeListener(_onInputChanged);
     heightController.removeListener(_onInputChanged);
     weightController.removeListener(_onInputChanged);
     jobController.removeListener(_onInputChanged);
 
-    ageController.dispose();
     heightController.dispose();
     weightController.dispose();
     jobController.dispose();
@@ -94,7 +91,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
               )
             : null,
         title: Text(
-          'Thiết lập hồ sơ',
+          'Set up Profile', // Translated
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             color: primaryPurple,
@@ -148,7 +145,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                 ),
                 onPressed: _canProceed() ? _handleNext : null,
                 child: Text(
-                  currentStep == 3 ? 'Hoàn thành đăng ký' : 'Tiếp tục',
+                  currentStep == 3
+                      ? 'Complete Registration'
+                      : 'Continue', // Translated
                   style: TextStyle(
                     color: _canProceed() ? Colors.white : Colors.grey.shade500,
                     fontSize: 16,
@@ -183,56 +182,58 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Thông tin cơ bản',
+          'Basic Information', // Translated
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
-          'Giúp chúng tôi hiểu bạn hơn',
+          'Help us get to know you', // Translated
           style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         const SizedBox(height: 30),
         const Text(
-          'Giới tính',
+          'Gender', // Translated
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Row(
           children: [
-            Expanded(child: _buildGenderCard('Nam', Icons.male)),
+            Expanded(child: _buildGenderCard('Male', Icons.male)), // Translated
             const SizedBox(width: 12),
-            Expanded(child: _buildGenderCard('Nữ', Icons.female)),
+            Expanded(
+              child: _buildGenderCard('Female', Icons.female),
+            ), // Translated
             const SizedBox(width: 12),
-            Expanded(child: _buildGenderCard('Khác', Icons.more_horiz)),
+            Expanded(
+              child: _buildGenderCard('Other', Icons.more_horiz),
+            ), // Translated
           ],
         ),
         const SizedBox(height: 24),
-        _buildTextField('Độ tuổi', ageController, 'Nhập tuổi của bạn'),
-        const SizedBox(height: 16),
         Row(
           children: [
             Expanded(
               child: _buildTextField(
-                'Chiều cao (cm)',
+                'Height (cm)', // Translated
                 heightController,
-                'VD: 170',
+                'e.g., 170', // Translated
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: _buildTextField(
-                'Cân nặng (kg)',
+                'Weight (kg)', // Translated
                 weightController,
-                'VD: 65',
+                'e.g., 65', // Translated
               ),
             ),
           ],
         ),
         const SizedBox(height: 16),
         _buildTextField(
-          'Nghề nghiệp',
+          'Occupation', // Translated
           jobController,
-          'VD: Sinh viên, Nhân viên văn phòng...',
+          'e.g., Student, Office Worker...', // Translated
         ),
       ],
     );
@@ -243,12 +244,12 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Phong cách yêu thích',
+          'Favorite Styles', // Translated
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
-          'Chọn 1 hoặc nhiều phong cách bạn thích',
+          'Select one or more styles you like', // Translated
           style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         const SizedBox(height: 24),
@@ -266,12 +267,12 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Màu sắc yêu thích',
+          'Favorite Colors', // Translated
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
-          'Chọn tối đa 3 màu bạn thích mặc nhất',
+          'Select up to 3 colors you like to wear most', // Translated
           style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         const SizedBox(height: 24),
@@ -343,12 +344,12 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Mục đích mặc',
+          'Wearing Purposes', // Translated
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
-          'Bạn mua quần áo chủ yếu cho mục đích gì?',
+          "What's the main purpose you buy clothes for?", // Translated
           style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         const SizedBox(height: 24),
@@ -521,7 +522,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     switch (currentStep) {
       case 0:
         return selectedGender != null &&
-            ageController.text.isNotEmpty &&
             heightController.text.isNotEmpty &&
             weightController.text.isNotEmpty &&
             jobController.text.isNotEmpty;
@@ -542,8 +542,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         SnackBar(
           content: Text(
             currentStep == 0
-                ? 'Vui lòng điền đầy đủ thông tin'
-                : 'Vui lòng chọn ít nhất một lựa chọn',
+                ? 'Please fill in all information' // Translated
+                : 'Please select at least one option', // Translated
           ),
           backgroundColor: Colors.red.shade400,
         ),
@@ -554,24 +554,23 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     if (currentStep < 3) {
       setState(() => currentStep++);
     } else {
-      // Hoàn thành - gộp dữ liệu và gửi lên backend
+      // Done - merge data and send to backend
       _saveCompleteUserData();
     }
   }
 
   void _saveCompleteUserData() {
-    // Gộp dữ liệu từ SignUp và ProfileSetup thành 1 JSON duy nhất
+    // Merge data from SignUp and ProfileSetup into a single JSON
     final completeUserData = {
-      // Dữ liệu từ SignUp screen
+      // Data from SignUp screen
       'username': widget.signUpData['username'],
       'password': widget.signUpData['password'],
       'firstname': widget.signUpData['firstname'],
       'lastname': widget.signUpData['lastname'],
       'dateOfBirth': widget.signUpData['dateOfBirth'],
 
-      // Dữ liệu từ ProfileSetup screen
+      // Data from ProfileSetup screen
       'gender': selectedGender,
-      'age': ageController.text,
       'height': heightController.text,
       'weight': weightController.text,
       'job': jobController.text,
@@ -580,22 +579,22 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       'purposes': selectedPurposes,
     };
 
-    // Convert sang JSON string
+    // Convert to JSON string
     final jsonString = jsonEncode(completeUserData);
 
-    // In ra console để kiểm tra
+    // Print to console for checking
     print('Complete User Data JSON:');
     print(jsonString);
 
-    // TODO: Gửi jsonString lên backend
-    // Ví dụ:
+    // TODO: Send jsonString to backend
+    // Example:
     // await http.post(
     //   Uri.parse('your-backend-url/api/register'),
     //   headers: {'Content-Type': 'application/json'},
     //   body: jsonString,
     // );
 
-    // Chuyển đến màn hình chính
+    // Navigate to the main screen
     Navigator.pushReplacementNamed(context, '/main');
   }
 }

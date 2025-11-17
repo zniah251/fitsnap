@@ -16,12 +16,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // Mock user data - Replace with actual user data
   final Map<String, String> userData = {
-    'name': 'Bao Chau',
-    'gender': 'Nữ',
+    'name': 'Bao Chau', // Name kept as is
+    'gender': 'Female',
     'age': '25',
     'height': '165 cm',
     'weight': '55 kg',
-    'job': 'Nhân viên văn phòng',
+    'job': 'Office Worker',
   };
 
   @override
@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: primaryPurple,
                         ),
                         label: const Text(
-                          'Chỉnh sửa hồ sơ',
+                          'Edit Profile',
                           style: TextStyle(
                             color: primaryPurple,
                             fontWeight: FontWeight.bold,
@@ -138,55 +138,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Thông tin cá nhân',
+                    'Personal Information',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
-                  _buildInfoCard(Icons.wc, 'Giới tính', userData['gender']!),
+                  _buildInfoCard(Icons.wc, 'Gender', userData['gender']!),
                   const SizedBox(height: 12),
-                  _buildInfoCard(Icons.cake, 'Tuổi', userData['age']!),
+                  _buildInfoCard(Icons.cake, 'Age', userData['age']!),
                   const SizedBox(height: 12),
-                  _buildInfoCard(
-                    Icons.height,
-                    'Chiều cao',
-                    userData['height']!,
-                  ),
+                  _buildInfoCard(Icons.height, 'Height', userData['height']!),
                   const SizedBox(height: 12),
                   _buildInfoCard(
                     Icons.monitor_weight,
-                    'Cân nặng',
+                    'Weight',
                     userData['weight']!,
                   ),
                   const SizedBox(height: 12),
-                  _buildInfoCard(Icons.work, 'Nghề nghiệp', userData['job']!),
+                  _buildInfoCard(Icons.work, 'Occupation', userData['job']!),
                   const SizedBox(height: 24),
 
                   // Settings Section
                   const Text(
-                    'Cài đặt',
+                    'Settings',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
-                  _buildSettingTile(Icons.lock_outline, 'Đổi mật khẩu', () {
+                  _buildSettingTile(Icons.lock_outline, 'Change Password', () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Đổi mật khẩu'),
+                        content: Text('Change Password'),
                         backgroundColor: accentPurple,
                       ),
                     );
                   }),
 
-                  // --- XÓA MỤC THÔNG BÁO ---
-                  // _buildSettingTile(
-                  //   Icons.notifications_outlined,
-                  //   'Thông báo',
-                  //   () { ... },
-                  // ),
+                  // --- REMOVED NOTIFICATION ITEM ---
 
-                  // --- THÊM MỤC XÓA TÀI KHOẢN ---
+                  // --- ADDED DELETE ACCOUNT ITEM ---
                   _buildSettingTile(
                     Icons.delete_forever_outlined,
-                    'Xóa tài khoản',
+                    'Delete Account',
                     () {
                       _showDeleteAccountDialog(context);
                     },
@@ -194,14 +185,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // --- THAY ĐỔI NÚT ĐĂNG XUẤT ---
+                  // --- CHANGED LOGOUT BUTTON ---
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton.icon(
                       onPressed: () => _showLogoutDialog(context),
                       icon: const Icon(Icons.logout, color: primaryPurple),
                       label: const Text(
-                        'Đăng xuất',
+                        'Log Out',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -273,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  // --- THAY ĐỔI HÀM NÀY ĐỂ CHẤP NHẬN MÀU TÙY CHỈNH ---
+  // --- MODIFIED TO ACCEPT CUSTOM COLOR ---
   Widget _buildSettingTile(
     IconData icon,
     String title,
@@ -298,7 +289,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  color: customColor, // Sẽ dùng màu mặc định nếu null
+                  color: customColor, // Will use default color if null
                 ),
               ),
             ),
@@ -321,35 +312,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
             borderRadius: BorderRadius.circular(20),
           ),
           title: const Text(
-            'Đăng xuất',
+            'Log Out',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          content: const Text('Bạn có chắc chắn muốn đăng xuất?'),
+          content: const Text('Are you sure you want to log out?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Hủy', style: TextStyle(color: Colors.grey.shade600)),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.grey.shade600),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context); // Close dialog
                 // TODO: Clear user session/token
 
-                // --- THAY ĐỔI LOGIC ĐIỀU HƯỚNG ---
+                // --- NAVIGATION LOGIC ---
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const SignInScreen()),
                   (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(
-                // --- THAY ĐỔI MÀU NÚT XÁC NHẬN ---
+                // --- CONFIRM BUTTON COLOR ---
                 backgroundColor: accentPurple,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               child: const Text(
-                'Đăng xuất',
+                'Log Out',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -372,19 +366,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Icon(Icons.warning_amber, color: Colors.red.shade600),
               const SizedBox(width: 8),
               const Text(
-                'Xóa tài khoản',
+                'Delete Account',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
           ),
           content: const Text(
-            'Bạn có chắc chắn muốn xóa tài khoản? Hành động này không thể hoàn tác và tất cả dữ liệu của bạn sẽ bị xóa vĩnh viễn.',
+            'Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently deleted.',
             style: TextStyle(height: 1.5),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Hủy', style: TextStyle(color: Colors.grey.shade600)),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.grey.shade600),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -402,7 +399,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               child: const Text(
-                'Xóa tài khoản',
+                'Delete Account',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
