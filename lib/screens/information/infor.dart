@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert'; // Import for jsonEncode
+import 'package:fitsnap/screens/signup/signin.dart'; // Import trang đăng nhập
 
 class ProfileSetupScreen extends StatefulWidget {
   final Map<String, dynamic> signUpData; // Receive data from SignUp
@@ -559,6 +560,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     }
   }
 
+  // --- THAY ĐỔI TRONG HÀM NÀY ---
   void _saveCompleteUserData() {
     // Merge data from SignUp and ProfileSetup into a single JSON
     final completeUserData = {
@@ -587,14 +589,21 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     print(jsonString);
 
     // TODO: Send jsonString to backend
-    // Example:
-    // await http.post(
-    //   Uri.parse('your-backend-url/api/register'),
-    //   headers: {'Content-Type': 'application/json'},
-    //   body: jsonString,
-    // );
+    // ...
 
-    // Navigate to the main screen
-    Navigator.pushReplacementNamed(context, '/main');
+    // Hiển thị thông báo đăng ký thành công
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Đăng ký thành công! Vui lòng đăng nhập.',
+        ), // Giữ lại thông báo
+        backgroundColor: primaryPurple,
+      ),
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SignInScreen()),
+    );
   }
 }
