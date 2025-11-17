@@ -44,6 +44,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   'Chào mừng trở lại!',
                   style: TextStyle(
                     fontSize: 32,
+                    //fontFamily: 'Poppins',
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),

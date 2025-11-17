@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:convert'; // Import để sử dụng jsonEncode
 
 class ProfileSetupScreen extends StatefulWidget {
-  const ProfileSetupScreen({super.key});
+  final Map<String, dynamic> signUpData; // Nhận dữ liệu từ SignUp
+
+  const ProfileSetupScreen({super.key, required this.signUpData});
 
   @override
   State<ProfileSetupScreen> createState() => _ProfileSetupScreenState();
@@ -50,11 +53,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     'Dự tiệc / dịp đặc biệt',
   ];
 
-  // --- THÊM PHẦN NÀY ---
   @override
   void initState() {
     super.initState();
-    // Thêm listener cho các controller để cập nhật UI khi người dùng nhập
     ageController.addListener(_onInputChanged);
     heightController.addListener(_onInputChanged);
     weightController.addListener(_onInputChanged);
@@ -63,7 +64,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
 
   @override
   void dispose() {
-    // Gỡ listener và huỷ controller khi widget bị huỷ
     ageController.removeListener(_onInputChanged);
     heightController.removeListener(_onInputChanged);
     weightController.removeListener(_onInputChanged);
@@ -76,13 +76,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     super.dispose();
   }
 
-  // Hàm này gọi setState để rebuild UI, kích hoạt lại _canProceed()
   void _onInputChanged() {
-    setState(() {
-      // Không cần làm gì cụ thể, chỉ cần trigger rebuild
-    });
+    setState(() {});
   }
-  // --- KẾT THÚC PHẦN THÊM ---
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +148,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                 ),
                 onPressed: _canProceed() ? _handleNext : null,
                 child: Text(
-                  currentStep == 3 ? 'Hoàn thành' : 'Tiếp tục',
+                  currentStep == 3 ? 'Hoàn thành đăng ký' : 'Tiếp tục',
                   style: TextStyle(
                     color: _canProceed() ? Colors.white : Colors.grey.shade500,
                     fontSize: 16,
@@ -182,7 +178,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     }
   }
 
-  // Step 1: Basic Info
   Widget _buildBasicInfoStep() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +192,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
           style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         const SizedBox(height: 30),
-        // Gender Selection
         const Text(
           'Giới tính',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -213,10 +207,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
           ],
         ),
         const SizedBox(height: 24),
-        // Age
         _buildTextField('Độ tuổi', ageController, 'Nhập tuổi của bạn'),
         const SizedBox(height: 16),
-        // Height & Weight
         Row(
           children: [
             Expanded(
@@ -237,7 +229,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
           ],
         ),
         const SizedBox(height: 16),
-        // Job
         _buildTextField(
           'Nghề nghiệp',
           jobController,
@@ -247,7 +238,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     );
   }
 
-  // Step 2: Style Preferences
   Widget _buildStyleStep() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -271,7 +261,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     );
   }
 
-  // Step 3: Color Preferences
   Widget _buildColorStep() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,7 +338,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     );
   }
 
-  // Step 4: Purpose
   Widget _buildPurposeStep() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -529,16 +517,14 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     );
   }
 
-  // --- SỬA HÀM NÀY ---
   bool _canProceed() {
     switch (currentStep) {
       case 0:
-        // Thêm kiểm tra jobController.text.isNotEmpty
         return selectedGender != null &&
             ageController.text.isNotEmpty &&
             heightController.text.isNotEmpty &&
             weightController.text.isNotEmpty &&
-            jobController.text.isNotEmpty; // <-- Đã thêm
+            jobController.text.isNotEmpty;
       case 1:
         return selectedStyles.isNotEmpty;
       case 2:
@@ -549,7 +535,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         return false;
     }
   }
-  // --- KẾT THÚC PHẦN SỬA ---
 
   void _handleNext() {
     if (!_canProceed()) {
@@ -569,15 +554,22 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     if (currentStep < 3) {
       setState(() => currentStep++);
     } else {
-      // Complete setup - save data and navigate to main
-      _saveUserData();
-      Navigator.pushReplacementNamed(context, '/main');
+      // Hoàn thành - gộp dữ liệu và gửi lên backend
+      _saveCompleteUserData();
     }
   }
 
-  void _saveUserData() {
-    // Save user preferences to local storage or backend
-    final userData = {
+  void _saveCompleteUserData() {
+    // Gộp dữ liệu từ SignUp và ProfileSetup thành 1 JSON duy nhất
+    final completeUserData = {
+      // Dữ liệu từ SignUp screen
+      'username': widget.signUpData['username'],
+      'password': widget.signUpData['password'],
+      'firstname': widget.signUpData['firstname'],
+      'lastname': widget.signUpData['lastname'],
+      'dateOfBirth': widget.signUpData['dateOfBirth'],
+
+      // Dữ liệu từ ProfileSetup screen
       'gender': selectedGender,
       'age': ageController.text,
       'height': heightController.text,
@@ -588,7 +580,22 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       'purposes': selectedPurposes,
     };
 
-    // TODO: Implement actual data saving
-    print('User Data: $userData');
+    // Convert sang JSON string
+    final jsonString = jsonEncode(completeUserData);
+
+    // In ra console để kiểm tra
+    print('Complete User Data JSON:');
+    print(jsonString);
+
+    // TODO: Gửi jsonString lên backend
+    // Ví dụ:
+    // await http.post(
+    //   Uri.parse('your-backend-url/api/register'),
+    //   headers: {'Content-Type': 'application/json'},
+    //   body: jsonString,
+    // );
+
+    // Chuyển đến màn hình chính
+    Navigator.pushReplacementNamed(context, '/main');
   }
 }

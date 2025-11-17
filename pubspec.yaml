@@ -94,12 +94,12 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 
   fonts:
-    - family: Poppins
+    - family: Montserrat
       fonts:
-        - asset: font/Poppins/Poppins-Regular.ttf
-        - asset: font/Poppins/Poppins-Medium.ttf
+        - asset: font/Montserrat/static/Montserrat-Regular.ttf
+        - asset: font/Montserrat/static/Montserrat-Medium.ttf
           weight: 500
-        - asset: font/Poppins/Poppins-SemiBold.ttf
+        - asset: font/Montserrat/static/Montserrat-SemiBold.ttf
           weight: 600
-        - asset: font/Poppins/Poppins-Bold.ttf
+        - asset: font/Montserrat/static/Montserrat-Bold.ttf
           weight: 700

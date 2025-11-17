@@ -1,4 +1,3 @@
-import 'package:fitsnap/screens/information/infor.dart';
 import 'package:fitsnap/screens/signup/signin.dart';
 import 'package:fitsnap/screens/signup/signup.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'FitSnap',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'Poppins', // 👈 Toàn app dùng font Poppins
+        fontFamily: 'Montserrat',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
         platform: TargetPlatform.android,
@@ -52,7 +51,6 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/signup_page': (context) => const SignUpScreen(),
         '/signin_page': (context) => const SignInScreen(),
-        '/infor': (context) => const ProfileSetupScreen(),
       },
     );
   }

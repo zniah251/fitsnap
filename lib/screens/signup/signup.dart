@@ -47,7 +47,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-
               const Text(
                 'Tạo tài khoản',
                 style: TextStyle(
@@ -57,13 +56,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-
               Text(
                 'Điền thông tin để bắt đầu',
                 style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
               ),
               const SizedBox(height: 40),
-
               _buildTextField(
                 controller: usernameController,
                 label: 'Tên đăng nhập',
@@ -71,7 +68,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 icon: Icons.person_outline,
               ),
               const SizedBox(height: 16),
-
               Row(
                 children: [
                   Expanded(
@@ -94,10 +90,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ],
               ),
               const SizedBox(height: 16),
-
               _buildDateField(),
               const SizedBox(height: 16),
-
               _buildTextField(
                 controller: passwordController,
                 label: 'Mật khẩu',
@@ -112,7 +106,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
               const SizedBox(height: 16),
-
               _buildTextField(
                 controller: confirmPasswordController,
                 label: 'Xác nhận mật khẩu',
@@ -127,7 +120,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
               const SizedBox(height: 32),
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -141,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   onPressed: _handleSignUp,
                   child: const Text(
-                    'Đăng ký',
+                    'Tiếp tục',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -151,7 +143,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -328,7 +319,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (picked != null) {
       setState(() {
         selectedDate = picked;
-
         final day = picked.day.toString().padLeft(2, '0');
         final month = picked.month.toString().padLeft(2, '0');
         final year = picked.year.toString();
@@ -338,9 +328,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _handleSignUp() {
+    // Tạo Map chứa dữ liệu từ SignUp
+    final signUpData = {
+      'username': usernameController.text,
+      'password': passwordController.text,
+      'firstname': firstnameController.text,
+      'lastname': lastnameController.text,
+      'dateOfBirth': dateOfBirthController.text,
+    };
+
+    // Truyền dữ liệu sang ProfileSetupScreen
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const ProfileSetupScreen()),
+      MaterialPageRoute(
+        builder: (context) => ProfileSetupScreen(signUpData: signUpData),
+      ),
     );
   }
 }
