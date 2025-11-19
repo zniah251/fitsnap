@@ -489,10 +489,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Chip(
-                        label: Text('Done'),
-                        backgroundColor: Color(0xFFEDE7FF),
-                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
