@@ -37,10 +37,12 @@ class CustomBottomNav extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _buildNavIcon(Icons.home, 0),
-              _buildNavIcon(Icons.calendar_today_outlined, 1),
-              _buildAddButton(),
-              _buildNavIcon(Icons.shuffle, 3),
-              _buildNavIcon(Icons.person_outline, 4),
+              _buildNavIcon(Icons.calendar_today_outlined, 1), // Hoặc Wardrobe
+              _buildAddButton(2), // Nút giữa nổi bật
+              _buildNavIcon(
+                Icons.person_outline,
+                3,
+              ), // ✅ QUAN TRỌNG: Sửa từ 4 thành 3
             ],
           ),
         ),
@@ -70,17 +72,25 @@ class CustomBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _buildAddButton() {
+  // Nút giữa được làm nổi bật (Try-On / Add)
+  Widget _buildAddButton(int index) {
+    bool isSelected = selectedIndex == index;
     return GestureDetector(
-      onTap: () => onItemTapped(2),
+      onTap: () => onItemTapped(index),
       child: Container(
-        width: 56,
-        height: 56,
-        decoration: const BoxDecoration(
-          color: accentPurple,
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: isSelected
+              ? accentPurple.withOpacity(0.2)
+              : Colors.transparent,
           shape: BoxShape.circle,
         ),
-        child: const Icon(Icons.add, color: Colors.white, size: 32),
+        child: Icon(
+          Icons.auto_awesome, // Icon phép thuật/AI
+          color: isSelected ? accentPurple : const Color(0xFF625B5B),
+          size: 24,
+        ),
       ),
     );
   }

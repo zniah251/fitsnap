@@ -39,31 +39,7 @@ class ItemDetailScreen extends StatelessWidget {
               ),
               onPressed: () => Navigator.pop(context),
             ),
-            actions: [
-              IconButton(
-                icon: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.favorite_border,
-                    color: Colors.black,
-                    size: 20,
-                  ),
-                ),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Added to favorites'),
-                      backgroundColor: accentPurple,
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(width: 8),
-            ],
+
             flexibleSpace: FlexibleSpaceBar(
               stretchModes: const [StretchMode.zoomBackground],
               background: Container(
