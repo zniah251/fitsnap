@@ -1,6 +1,7 @@
+import 'package:fitsnap/screens/wardrobe/itemdetail.dart'; // Đảm bảo đường dẫn này đúng
 import 'package:flutter/material.dart';
 import 'package:fitsnap/navbar.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart'; // ✅ import thêm bộ icon hiện đại
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({super.key});
@@ -15,23 +16,15 @@ class WardrobeScreenState extends State<WardrobeScreen> {
   static const Color lightPurple = Color(0xFFEDE4FF);
   static const Color accentPurple = Color(0xFF5F33E1);
 
-  // ✅ Danh sách category có icon riêng phù hợp hơn
+  // Labels kept in English as requested
   final List<Map<String, dynamic>> categories = [
-    {'icon': Symbols.checkroom, 'label': 'T-shirt', 'count': '17'}, // áo
-    {'icon': Symbols.dry_cleaning, 'label': 'Dress', 'count': '17'}, // váy
-    {
-      'icon': Symbols.shopping_bag,
-      'label': 'Jacket',
-      'count': '17',
-    }, // áo khoác
-    {'icon': Symbols.trending_flat, 'label': 'Trousers', 'count': '17'}, // quần
-    {'icon': Symbols.diamond, 'label': 'Jewelry', 'count': '17'}, // trang sức
-    {
-      'icon': Symbols.wb_sunny,
-      'label': 'Outerwear',
-      'count': '17',
-    }, // đồ đi ngoài
-    {'icon': Symbols.ac_unit, 'label': 'Sweater', 'count': '17'}, // đồ ấm
+    {'icon': Symbols.checkroom, 'label': 'T-shirt', 'count': '17'},
+    {'icon': Symbols.dry_cleaning, 'label': 'Dress', 'count': '17'},
+    {'icon': Symbols.shopping_bag, 'label': 'Jacket', 'count': '17'},
+    {'icon': Symbols.trending_flat, 'label': 'Trousers', 'count': '17'},
+    {'icon': Symbols.diamond, 'label': 'Jewelry', 'count': '17'},
+    {'icon': Symbols.wb_sunny, 'label': 'Outerwear', 'count': '17'},
+    {'icon': Symbols.ac_unit, 'label': 'Sweater', 'count': '17'},
   ];
 
   @override
@@ -40,11 +33,11 @@ class WardrobeScreenState extends State<WardrobeScreen> {
       backgroundColor: lightPurple,
       body: Column(
         children: [
-          // HEADER (giữ nguyên)
+          // HEADER
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: accentPurple,
-              borderRadius: const BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25),
               ),
@@ -132,7 +125,7 @@ class WardrobeScreenState extends State<WardrobeScreen> {
             ),
           ),
 
-          // ✅ CATEGORY — phiên bản đẹp hơn
+          // CATEGORY SECTION
           Container(
             height: 130,
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -146,24 +139,15 @@ class WardrobeScreenState extends State<WardrobeScreen> {
                     (category) => Container(
                       margin: const EdgeInsets.only(right: 20),
                       width: 70,
-                      height: 70,
+                      height: 90, // Keep height 90 to avoid overflow
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(
-                          255,
-                          248,
-                          242,
-                          250,
-                        ), // Hồng nhạt
+                        color: const Color.fromARGB(255, 248, 242, 250),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            category['icon'],
-                            color: const Color.fromARGB(255, 0, 0, 0),
-                            size: 30,
-                          ),
+                          Icon(category['icon'], color: Colors.black, size: 30),
                           const SizedBox(height: 6),
                           Text(
                             category['label'],
@@ -173,6 +157,8 @@ class WardrobeScreenState extends State<WardrobeScreen> {
                               color: Colors.black87,
                             ),
                             textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
@@ -184,14 +170,14 @@ class WardrobeScreenState extends State<WardrobeScreen> {
             ),
           ),
 
-          // GRID (giữ nguyên)
+          // BODY LIST
           Expanded(
             child: ListView(
               padding: const EdgeInsets.only(top: 8),
               children: [
-                _buildClothesSection('Áo khoác', '17'),
-                _buildClothesSection('Sweater', '17'),
-                _buildClothesSection('Áo thun', '17'),
+                _buildClothesSection('Jackets', '17'), // Translated
+                _buildClothesSection('Sweaters', '17'), // Translated
+                _buildClothesSection('T-shirts', '17'), // Translated
               ],
             ),
           ),
@@ -209,6 +195,43 @@ class WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget _buildClothesSection(String title, String count) {
+    // Mock data translated to English
+    final List<Map<String, String>> mockItems = [
+      {
+        'category': 'Clothing',
+        'type': 'Jacket',
+        'color': 'Black',
+        'material': 'Cotton',
+        'pattern': 'Solid',
+        'style': 'Casual',
+        'fit': 'Regular',
+        'description': 'Classic denim jacket, perfect for fall and winter.',
+        'imageUrl': 'image/item/item_1.png',
+      },
+      {
+        'category': 'Clothing',
+        'type': 'Sweater',
+        'color': 'Navy Blue',
+        'material': 'Wool',
+        'pattern': 'Striped',
+        'style': 'Preppy',
+        'fit': 'Slim',
+        'description': 'Soft wool sweater, keeps you warm.',
+        'imageUrl': 'image/item/item_2.png',
+      },
+      {
+        'category': 'Clothing',
+        'type': 'T-shirt',
+        'color': 'White',
+        'material': 'Cotton',
+        'pattern': 'Solid',
+        'style': 'Minimalist',
+        'fit': 'Regular',
+        'description': 'Basic white t-shirt, easy to match.',
+        'imageUrl': 'image/item/item_3.png',
+      },
+    ];
+
     return Column(
       children: [
         Padding(
@@ -234,30 +257,41 @@ class WardrobeScreenState extends State<WardrobeScreen> {
           height: 120,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 3,
+            itemCount: mockItems.length,
             itemBuilder: (context, index) {
-              return Container(
-                width: 120,
-                margin: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: accentPurple.withOpacity(0.2)),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    'image/item/item_${index + 1}.png',
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Center(
-                        child: Icon(
-                          Icons.image_outlined,
-                          color: Colors.grey,
-                          size: 32,
-                        ),
-                      );
-                    },
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ItemDetailScreen(itemData: mockItems[index]),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 120,
+                  margin: EdgeInsets.only(left: index == 0 ? 16 : 8, right: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: accentPurple.withOpacity(0.2)),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      mockItems[index]['imageUrl']!,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Center(
+                          child: Icon(
+                            Icons.image_outlined,
+                            color: Colors.grey,
+                            size: 32,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               );
