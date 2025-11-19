@@ -130,7 +130,7 @@ class _ScanScreenState extends State<ScanScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.qr_code_scanner,
+                            Icons.add,
                             size: 80,
                             color: accentPurple.withOpacity(0.5),
                           ),
