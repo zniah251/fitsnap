@@ -14,7 +14,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   static const Color purpleColor = Color(0xFF7559D9);
   static const Color weatherDarkBlue = Color(0xFF1E2A47);
 
-  // DỮ LIỆU
+  // DỮ LIỆU (GIỮ NGUYÊN NHƯ BẠN YÊU CẦU)
   final List<Map<String, dynamic>> weekDays = [
     {
       'day': '16',
@@ -65,7 +65,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       'minTemp': '24.0',
       'maxTemp': '29.0',
       'eventTitle': 'Coffee Date',
-      'eventLoc': 'HIGHLANDS COFFEE | 02-04PM',
+      'eventLoc': 'Home Coffee, District 3 | 2-4PM',
       'outfitImages': [
         'image/item/rcma1.png',
         'image/item/rcmk1.png',
@@ -119,23 +119,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
     },
   ];
 
-  // 🔥 HÀM HIỆN MODAL THÊM EVENT
+  // 🔥 HÀM HIỆN MODAL THÊM EVENT (CÓ LOADING 4 GIÂY)
   void _showAddEventModal(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController locController = TextEditingController();
     TimeOfDay selectedTime = TimeOfDay.now();
 
-    // Danh sách Tag
     final List<String> vibes = [
-      'Smart', // Lịch sự
-      'Formal', // Trang trọng
-      'Dynamic', // Năng động
-      'Casual', // Thường ngày
-      'Cute', // Dễ thương
-      'Cool', // Ngầu
-      'Sporty', // Thể thao
-      'Date', // Hẹn hò
-      'Gala', // Dạ hội
+      'Smart',
+      'Formal',
+      'Dynamic',
+      'Casual',
+      'Cute',
+      'Cool',
+      'Sporty',
+      'Date',
+      'Gala',
     ];
     List<String> selectedVibes = [];
 
@@ -181,7 +180,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     const SizedBox(height: 20),
 
-                    // 1. Tên Event
+                    // INPUTS
                     TextField(
                       controller: nameController,
                       decoration: InputDecoration(
@@ -193,8 +192,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
-                    // 2. Địa điểm
                     TextField(
                       controller: locController,
                       decoration: InputDecoration(
@@ -209,8 +206,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
-                    // 3. Chọn giờ
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: const Text(
@@ -239,14 +234,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           context: context,
                           initialTime: selectedTime,
                         );
-                        if (picked != null) {
+                        if (picked != null)
                           setModalState(() => selectedTime = picked);
-                        }
                       },
                     ),
                     const Divider(),
-
-                    // 4. Chọn Tag (Max 3)
                     const Text(
                       "Vibe (Max 3)",
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -278,7 +270,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     const SizedBox(height: 24),
 
-                    // 5. Nút Save
+                    // NÚT SAVE
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -289,27 +281,45 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (nameController.text.isNotEmpty) {
-                            // CẬP NHẬT DỮ LIỆU RA MÀN HÌNH CHÍNH
+                            // 1. HIỆN LOADING
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+
+                            // 2. CHỜ 4 GIÂY
+                            await Future.delayed(const Duration(seconds: 4));
+
+                            // 3. ĐÓNG LOADING
+                            if (context.mounted) Navigator.pop(context);
+
+                            // 4. CẬP NHẬT DỮ LIỆU
                             setState(() {
                               String timeStr =
                                   "${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')} ${selectedTime.period == DayPeriod.am ? 'AM' : 'PM'}";
-
-                              // Gán dữ liệu vào ngày đang chọn
                               weekDays[_selectedDateIndex]['eventTitle'] =
                                   nameController.text;
                               weekDays[_selectedDateIndex]['eventLoc'] =
                                   "${locController.text} | $timeStr";
 
+                              // 🔥 ĐIỀN ẢNH VÀO ĐỂ GIAO DIỆN TỰ ĐỔI TỪ "NO OUTFIT" SANG "CÓ ẢNH"
                               weekDays[_selectedDateIndex]['outfitImages'] = [
                                 'image/item/rcma1.png',
-                                'image/item/rcmk2.png',
                                 'image/item/rcmq2.png',
+                                'image/item/rcmk2.png',
                                 'image/item/rcmg2.png',
                               ];
                             });
-                            Navigator.pop(context); // Đóng modal
+
+                            // 5. ĐÓNG MODAL
+                            if (context.mounted) Navigator.pop(context);
                           }
                         },
                         child: const Text(
@@ -335,8 +345,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     final selectedData = weekDays[_selectedDateIndex];
-
-    // Lấy danh sách ảnh của ngày được chọn
     List<String>? outfitList = selectedData['outfitImages'];
     bool hasOutfit = outfitList != null && outfitList.length == 4;
 
@@ -402,7 +410,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 itemBuilder: (context, index) {
                   final item = weekDays[index];
                   final isSelected = index == _selectedDateIndex;
-
                   return GestureDetector(
                     onTap: () => setState(() => _selectedDateIndex = index),
                     child: Container(
@@ -465,7 +472,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 },
               ),
             ),
-
             const SizedBox(height: 20),
 
             // 3. OUTFIT SUGGESTION
@@ -489,11 +495,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Chip(
+                        label: Text('Done'),
+                        backgroundColor: Color(0xFFEDE7FF),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
-
-                  // 🔥 LOGIC HIỂN THỊ ẢNH ĐỘNG
                   hasOutfit
                       ? Column(
                           children: [
@@ -535,7 +543,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           ],
                         )
                       : SizedBox(
-                          // KHÔNG CÓ ẢNH -> HIỆN THÔNG BÁO
                           height: 100,
                           width: double.infinity,
                           child: Center(
@@ -562,10 +569,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
 
-            // 4. EVENT INFO
+            // 4. EVENT INFO (Nơi có nút Add)
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -619,7 +625,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             const SizedBox(width: 4),
                             Expanded(
                               child: Text(
-                                selectedData['eventLoc'] ?? 'Relaxing day...',
+                                selectedData['eventLoc'] ??
+                                    'Tap + to add event',
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 12,
@@ -633,9 +640,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ],
                     ),
                   ),
-                  // 🔥 NÚT ADD: GỌI MODAL
                   InkWell(
-                    onTap: () => _showAddEventModal(context),
+                    onTap: () => _showAddEventModal(context), // 🔥 GỌI MODAL
                     child: Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
@@ -652,12 +658,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
 
-            // 5. DETAILED WEATHER BOX
+            // 5. WEATHER BOX
             _buildDetailedWeatherBox(selectedData),
-
             const SizedBox(height: 30),
           ],
         ),
@@ -666,7 +670,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   // --- WIDGETS HỖ TRỢ ---
-
   Widget _buildOutfitImage(String path) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
