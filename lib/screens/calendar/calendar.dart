@@ -125,17 +125,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
     TextEditingController locController = TextEditingController();
     TimeOfDay selectedTime = TimeOfDay.now();
 
-    final List<String> vibes = [
-      'Smart',
-      'Formal',
-      'Dynamic',
-      'Casual',
-      'Cute',
-      'Cool',
-      'Sporty',
-      'Date',
-      'Gala',
+    final List<String> typeOfEvent = [
+      'Casual Party',
+      'Outdoor Picnic',
+      'Outdoor Sports Activity', // Vibe 1: Sports
+      'Indoor Sports Activity', // Vibe 1: Sports
+      'Business Meeting', // Vibe 2: Business
+      'Romantic Dinner Date',
+      'Campus Festival',
+      'Music Concert',
+      'Office Day',
+      'Beach Day',
+      'Fine Dining',
+      'Shopping Day',
+      'Road Trip',
     ];
+    // Thay đổi tên biến: selectedtypeOfEvent -> selectedVibes
     List<String> selectedVibes = [];
 
     showModalBottomSheet(
@@ -222,6 +227,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
+                          // Sử dụng selectedTime
                           "${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')} ${selectedTime.period == DayPeriod.am ? 'AM' : 'PM'}",
                           style: const TextStyle(
                             color: purpleColor,
@@ -240,13 +246,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     const Divider(),
                     const Text(
-                      "Vibe (Max 3)",
+                      "Type of Event (Max 2)",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     Wrap(
                       spacing: 8,
-                      children: vibes.map((tag) {
+                      children: typeOfEvent.map((tag) {
+                        // Sử dụng selectedVibes
                         bool isSelected = selectedVibes.contains(tag);
                         return FilterChip(
                           label: Text(tag),
@@ -258,10 +265,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           onSelected: (bool selected) {
                             setModalState(() {
                               if (selected) {
-                                if (selectedVibes.length < 3)
-                                  selectedVibes.add(tag);
+                                if (selectedVibes.length < 2)
+                                  selectedVibes.add(
+                                    tag,
+                                  ); // Sử dụng selectedVibes
                               } else {
-                                selectedVibes.remove(tag);
+                                selectedVibes.remove(
+                                  tag,
+                                ); // Sử dụng selectedVibes
                               }
                             });
                           },
@@ -300,7 +311,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             // 3. ĐÓNG LOADING
                             if (context.mounted) Navigator.pop(context);
 
-                            // 4. CẬP NHẬT DỮ LIỆU
+                            // 4. CẬP NHẬT DỮ LIỆU VÀ LOGIC OUTFIT MỚI
                             setState(() {
                               String timeStr =
                                   "${selectedTime.hour}:${selectedTime.minute.toString().padLeft(2, '0')} ${selectedTime.period == DayPeriod.am ? 'AM' : 'PM'}";
@@ -309,13 +320,62 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               weekDays[_selectedDateIndex]['eventLoc'] =
                                   "${locController.text} | $timeStr";
 
-                              // 🔥 ĐIỀN ẢNH VÀO ĐỂ GIAO DIỆN TỰ ĐỔI TỪ "NO OUTFIT" SANG "CÓ ẢNH"
-                              weekDays[_selectedDateIndex]['outfitImages'] = [
-                                'image/item/rcma1.png',
-                                'image/item/rcmq2.png',
-                                'image/item/rcmk2.png',
-                                'image/item/rcmg2.png',
-                              ];
+                              // --- LOGIC OUTFIT MỚI (DÒNG 343) ---
+                              final bool isSports =
+                                  selectedVibes.contains(
+                                    'Outdoor Sports Activity',
+                                  ) ||
+                                  selectedVibes.contains(
+                                    'Indoor Sports Activity',
+                                  );
+                              final bool isBusiness = selectedVibes.contains(
+                                'Business Meeting',
+                              );
+                              final bool isPicnic = selectedVibes.contains(
+                                'Outdoor Picnic',
+                              );
+
+                              List<String> newOutfit;
+
+                              if (isSports) {
+                                // Bộ A: Sports
+                                newOutfit = [
+                                  'image/item/rcma1.png',
+                                  'image/item/rcmk2.png',
+                                  'image/item/rcmq2.png',
+                                  'image/item/rcmg2.png',
+                                ];
+                              } else if (isBusiness) {
+                                // Bộ B: Business
+                                newOutfit = [
+                                  'image/item/rcma2.png',
+                                  'image/item/rcmk3.png',
+                                  'image/item/rcmq3.png',
+                                  'image/item/rcmg3.png',
+                                ];
+                              } else if (isPicnic) {
+                                // Bộ C: Picnic
+                                newOutfit = [
+                                  'image/item/rcma3.png',
+                                  'image/item/rcmk4.png',
+                                  'image/item/rcmq4.png',
+                                  'image/item/rcmg1.png',
+                                ];
+                              } else {
+                                // Bộ D: Mặc định (Sử dụng bộ outfit cũ rcm)
+                                newOutfit = [
+                                  'image/item/rcma.png',
+                                  'image/item/rcmk.png',
+                                  'image/item/rcmv.png',
+                                  'image/item/rcmg.png',
+                                ];
+                              }
+
+                              // Cập nhật outfitImages
+                              weekDays[_selectedDateIndex]['outfitImages'] =
+                                  newOutfit;
+
+                              // --- KẾT THÚC LOGIC OUTFIT MỚI ---
                             });
 
                             // 5. ĐÓNG MODAL
@@ -494,10 +554,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      Chip(
-                        label: Text('Done'),
-                        backgroundColor: Color(0xFFEDE7FF),
                       ),
                     ],
                   ),

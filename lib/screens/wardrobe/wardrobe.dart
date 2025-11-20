@@ -17,7 +17,7 @@ class WardrobeScreenState extends State<WardrobeScreen> {
   static const Color lightPurple = Color(0xFFEDE4FF);
   static const Color accentPurple = Color(0xFF5F33E1);
 
-  // Cố định category theo các loại của bạn
+  // Cố định category theo các loại của bạn (ĐÃ THÊM GIÀY VÀ ÁO POLO)
   final List<Map<String, dynamic>> categories = [
     {'icon': Symbols.shopping_bag, 'label': 'Jacket', 'type': 'Jacket'},
     {'icon': Symbols.ac_unit, 'label': 'Sweater', 'type': 'Sweater'},
@@ -30,9 +30,13 @@ class WardrobeScreenState extends State<WardrobeScreen> {
       'label': 'Short',
       'type': 'Short',
     },
+    // 👇 THÊM ÁO POLO
+    {'icon': Symbols.apparel, 'label': 'Polo', 'type': 'Polo Shirt'},
+    // 👇 THÊM GIÀY
+    {'icon': Symbols.footprint, 'label': 'Shoes', 'type': 'Shoes'},
   ];
 
-  // Mock dữ liệu tất cả đồ, gồm các type bạn muốn
+  // Mock dữ liệu tất cả đồ, gồm các type bạn muốn (ĐÃ THÊM MẪU CHO GIÀY VÀ ÁO POLO)
   final List<Map<String, String>> allItems = [
     {
       'type': 'Jacket',
@@ -104,6 +108,39 @@ class WardrobeScreenState extends State<WardrobeScreen> {
       'description': 'Denim shorts for summer.',
       'imageUrl': 'image/item/item_7.png',
     },
+    // 👇 THÊM ÁO POLO MẪU 1
+    {
+      'type': 'Polo Shirt',
+      'color': 'Green',
+      'material': 'Pique',
+      'pattern': 'Solid',
+      'style': 'Sporty',
+      'fit': 'Regular',
+      'description': 'Classic green polo shirt.',
+      'imageUrl': 'image/item/item_polo_1.png',
+    },
+    // 👇 THÊM GIÀY MẪU 1
+    {
+      'type': 'Shoes',
+      'color': 'White',
+      'material': 'Leather',
+      'pattern': 'Solid',
+      'style': 'Sneaker',
+      'fit': 'Regular',
+      'description': 'White leather sneakers.',
+      'imageUrl': 'image/item/item_shoes_1.png',
+    },
+    // 👇 THÊM GIÀY MẪU 2 (để có 2 item cho category Giày)
+    {
+      'type': 'Shoes',
+      'color': 'Brown',
+      'material': 'Suede',
+      'pattern': 'Solid',
+      'style': 'Loafer',
+      'fit': 'Regular',
+      'description': 'Brown suede loafers.',
+      'imageUrl': 'image/item/item_shoes_2.png',
+    },
   ];
 
   String selectedType = "Jacket";
@@ -123,7 +160,7 @@ class WardrobeScreenState extends State<WardrobeScreen> {
           Expanded(child: _buildFilteredItemsList()),
         ],
       ),
-      // 👇 SỬA PHẦN NÀY
+      // 👇 SỬA PHẦN NÀY (Giữ nguyên logic của bạn)
       bottomNavigationBar: CustomBottomNav(
         selectedIndex: selectedIndex,
         onItemTapped: (index) {
