@@ -44,7 +44,7 @@ class ItemDetailScreen extends StatelessWidget {
               stretchModes: const [StretchMode.zoomBackground],
               background: Container(
                 color: lightPurple,
-                child: Image.network(
+                child: Image.asset(
                   itemData['imageUrl'] ?? '',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {

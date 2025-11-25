@@ -19,10 +19,52 @@ class _TryOnScreenState extends State<TryOnScreen> {
   static const Color accentPurple = Color(0xFF5F33E1);
   static const Color slightlyDarkerPurple = Color(0xFFE5D3FF);
 
+  // Danh sách các file ảnh quần áo
+  final List<String> _itemImages = [
+    'rcma.png',
+    'rcma1.png',
+    'rcma2.png',
+    'rcma3.png',
+    'rcmg.png',
+    'rcmg1.png',
+    'rcmg2.png',
+    'rcmg3.png',
+    'rcmk.png',
+    'rcmk1.png',
+    'rcmk2.png',
+    'rcmk3.png',
+    'rcmk4.png',
+    'rcmq1.png',
+    'rcmq2.png',
+    'rcmq3.png',
+    'rcmq4.png',
+    'rcmv.png',
+    'tn.png',
+  ];
+
+  // Biến để lưu ảnh đang hiển thị bên trái
+  // Ban đầu là ảnh người dùng chụp/chọn (kiểu File)
+  // Sau khi click, sẽ đổi thành ảnh mẫu (kiểu String - đường dẫn asset)
+  dynamic _displayingImage;
+  bool _isUsingAssetImage = false; // Cờ để biết đang dùng ảnh File hay Asset
+
+  @override
+  void initState() {
+    super.initState();
+    // Khởi tạo ảnh hiển thị ban đầu là ảnh từ widget truyền sang
+    _displayingImage = widget.imageFile;
+    _isUsingAssetImage = false;
+  }
+
   // 👉 Hàm xử lý khi click item
   void onClothesSelected(int index) {
-    print("Clicked item ${index + 1}");
-    // TODO: Xử lý thử đồ ở đây
+    print("Clicked item: ${_itemImages[index]}");
+
+    setState(() {
+      // Đổi ảnh hiển thị sang ảnh mẫu trong asset
+      _displayingImage = 'image/body/modelat.png';
+      _isUsingAssetImage = true;
+    });
   }
 
   @override
@@ -32,21 +74,13 @@ class _TryOnScreenState extends State<TryOnScreen> {
       appBar: AppBar(
         backgroundColor: lightPurple,
         elevation: 0,
-        // automaticallyImplyLeading: false, // ❌ BỎ dòng này hoặc set là true (nhưng dùng leading thủ công thì dòng này không quan trọng)
         centerTitle: true,
-
-        // ✅ THÊM: Nút Back ở góc trái
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios, // Dùng icon mũi tên kiểu iOS cho đẹp
-            color: Colors.black,
-            size: 22,
-          ),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 22),
           onPressed: () {
-            Navigator.pop(context); // Quay lại trang InsertScreen trước đó
+            Navigator.pop(context);
           },
         ),
-
         title: const Text(
           'Virtual Try-On',
           style: TextStyle(
@@ -58,7 +92,7 @@ class _TryOnScreenState extends State<TryOnScreen> {
       ),
       body: Row(
         children: [
-          // LEFT — user image
+          // LEFT — user image (Hiển thị ảnh động dựa trên trạng thái)
           Expanded(
             flex: 3,
             child: Container(
@@ -73,12 +107,24 @@ class _TryOnScreenState extends State<TryOnScreen> {
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return Center(
-                      child: Image.file(
-                        widget.imageFile,
-                        fit: BoxFit.contain,
-                        width: constraints.maxWidth,
-                        height: constraints.maxHeight,
-                      ),
+                      // Kiểm tra để hiển thị đúng loại ảnh (File hoặc Asset)
+                      child: _isUsingAssetImage
+                          ? Image.asset(
+                              _displayingImage as String, // Ép kiểu về String
+                              fit: BoxFit.contain,
+                              width: constraints.maxWidth,
+                              height: constraints.maxHeight,
+                              errorBuilder: (context, error, stackTrace) {
+                                // Xử lý nếu ảnh asset không tìm thấy
+                                return const Center(child: Icon(Icons.error));
+                              },
+                            )
+                          : Image.file(
+                              _displayingImage as File, // Ép kiểu về File
+                              fit: BoxFit.contain,
+                              width: constraints.maxWidth,
+                              height: constraints.maxHeight,
+                            ),
                     );
                   },
                 ),
@@ -99,7 +145,7 @@ class _TryOnScreenState extends State<TryOnScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: GridView.builder(
-                  itemCount: 30,
+                  itemCount: _itemImages.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
                     mainAxisSpacing: 10,
@@ -117,7 +163,7 @@ class _TryOnScreenState extends State<TryOnScreen> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: Image.asset(
-                            'image/item/item_${index + 1}.png',
+                            'image/item/${_itemImages[index]}',
                             fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
@@ -147,7 +193,6 @@ class _TryOnScreenState extends State<TryOnScreen> {
         selectedIndex: _selectedIndex,
         onItemTapped: (index) {
           if (index == _selectedIndex) return;
-          // Điều hướng về MainScreen và chọn đúng Tab
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

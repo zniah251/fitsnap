@@ -15,20 +15,20 @@ class _ScanScreenState extends State<ScanScreen> {
   bool _isLoading = false;
   bool _isAnalyzed = false;
 
-  // Mock data - will be replaced by data from API/Gemini
-  final Map<String, String> _itemData = {
-    'name': 'Oxford Shirt',
-    'category': 'Top',
-    'type': 'Shirt',
-    'color': 'Navy Blue',
-    'material': 'Cotton Oxford',
-    'pattern': 'Solid',
-    'style': 'Formal',
-    'season': 'All Season',
-    'gender': 'Male',
-    'fit': 'Slim fit',
-    'description':
-        'High-quality cotton Oxford shirt, elegant design suitable for the office. Can be paired with trousers or chinos.',
+  // Bỏ 'final' để có thể cập nhật dữ liệu sau khi analyze
+  // Dữ liệu mặc định ban đầu (hoặc rỗng)
+  Map<String, String> _itemData = {
+    'name': 'Unknown Item',
+    'category': '...',
+    'type': '...',
+    'color': '...',
+    'material': '...',
+    'pattern': '...',
+    'style': '...',
+    'season': '...',
+    'gender': '...',
+    'fit': '...',
+    'description': 'Please scan an image to analyze details.',
   };
 
   static const Color lightPurple = Color(0xFFEDE4FF);
@@ -47,7 +47,7 @@ class _ScanScreenState extends State<ScanScreen> {
       setState(() {
         if (pickedFile != null) {
           _image = File(pickedFile.path);
-          _isAnalyzed = false;
+          _isAnalyzed = false; // Reset trạng thái khi chọn ảnh mới
         }
         _isLoading = false;
       });
@@ -65,19 +65,39 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Future<void> analyzeImage() async {
+    if (_image == null) return;
+
     setState(() => _isLoading = true);
 
-    // Simulate API call - Replace with actual Gemini API call
-    await Future.delayed(const Duration(seconds: 2));
+    // 1. Giả lập gọi API mất 5 giây
+    await Future.delayed(const Duration(seconds: 5));
 
+    // 2. Cập nhật dữ liệu khớp với chiếc áo trong hình (Sơ mi sọc xanh)
     setState(() {
       _isLoading = false;
       _isAnalyzed = true;
+
+      _itemData = {
+        'name': 'Striped Pocket Shirt',
+        'category': 'Top',
+        'type': 'Shirt',
+        'color': 'Blue & White',
+        'material': 'Cotton Blend',
+        'pattern': 'Vertical Stripes',
+        'style': 'Casual',
+        'season': 'Spring/Summer',
+        'gender': 'Unisex',
+        'fit': 'Relaxed Fit',
+        'description':
+            'A casual blue and white vertical striped shirt featuring dual chest pockets with flaps. Perfect for a relaxed daily outfit or layering.',
+      };
     });
   }
 
   void saveToWardrobe() {
-    // TODO: Implement save to wardrobe functionality
+    final newItem = Map<String, String>.from(_itemData);
+    newItem['imageUrl'] = 'image/item/tn.png';
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Saved to wardrobe!'),
@@ -86,8 +106,8 @@ class _ScanScreenState extends State<ScanScreen> {
       ),
     );
 
-    // Navigate back or to wardrobe
-    Navigator.pop(context);
+    // Navigate back and return the new item
+    Navigator.pop(context, newItem);
   }
 
   @override
@@ -164,8 +184,21 @@ class _ScanScreenState extends State<ScanScreen> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text(
+                                    'Analyzing AI...',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -181,7 +214,7 @@ class _ScanScreenState extends State<ScanScreen> {
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                      onPressed: getImage,
+                      onPressed: _isLoading ? null : getImage,
                       icon: Icon(
                         _image == null ? Icons.photo_library : Icons.refresh,
                         color: accentPurple,

@@ -16,6 +16,202 @@ class _HomeScreenState extends State<HomeScreen> {
   static const Color lightPurple = Color(0xFFEDE4FF);
   static const Color accentPurple = Color(0xFF5F33E1);
 
+  // Temporary item list
+  final List<Map<String, String>> _allItems = [
+    // Jackets
+    {
+      'type': 'Jacket',
+      'color': 'Beige',
+      'material': 'Nylon',
+      'pattern': 'Solid',
+      'style': 'Casual',
+      'fit': 'Regular',
+      'description': 'A stylish beige nylon jacket for everyday wear.',
+      'imageUrl': 'image/item/rcmk.png',
+    },
+    {
+      'type': 'Jacket',
+      'color': 'Red',
+      'material': 'Leather',
+      'pattern': 'Solid',
+      'style': 'Biker',
+      'fit': 'Slim',
+      'description': 'Classic black leather biker jacket.',
+      'imageUrl': 'image/item/rcmk1.png',
+    },
+    {
+      'type': 'Jacket',
+      'color': 'Gray',
+      'material': 'Wool',
+      'pattern': 'Solid',
+      'style': 'Formal',
+      'fit': 'Regular',
+      'description':
+          'A formal gray wool jacket, perfect for business meetings.',
+      'imageUrl': 'image/item/rcmk2.png',
+    },
+    {
+      'type': 'Jacket',
+      'color': 'Brown',
+      'material': 'Suede',
+      'pattern': 'Solid',
+      'style': 'Casual',
+      'fit': 'Regular',
+      'description': 'A casual brown suede jacket.',
+      'imageUrl': 'image/item/rcmk3.png',
+    },
+    {
+      'type': 'Jacket',
+      'color': 'Cream',
+      'material': 'Fleece',
+      'pattern': 'Solid',
+      'style': 'Cozy',
+      'fit': 'Loose',
+      'description': 'A cozy and warm cream-colored fleece jacket.',
+      'imageUrl': 'image/item/rcmk4.png',
+    },
+
+    // T-shirts, Polos, Blouses
+    {
+      'type': 'T-shirt',
+      'color': 'White',
+      'material': 'Cotton',
+      'pattern': 'Graphic',
+      'style': 'Casual',
+      'fit': 'Regular',
+      'description': 'A casual white cotton t-shirt with a stylish graphic.',
+      'imageUrl': 'image/item/rcma.png',
+    },
+    {
+      'type': 'Polo Shirt',
+      'color': 'Black',
+      'material': 'Pique',
+      'pattern': 'Solid',
+      'style': 'Sporty',
+      'fit': 'Regular',
+      'description': 'A classic black pique polo shirt.',
+      'imageUrl': 'image/item/rcma1.png',
+    },
+    {
+      'type': 'T-shirt',
+      'color': 'Gray',
+      'material': 'Cotton',
+      'pattern': 'Solid',
+      'style': 'Minimalist',
+      'fit': 'Slim',
+      'description': 'A minimalist gray cotton t-shirt.',
+      'imageUrl': 'image/item/rcma2.png',
+    },
+    {
+      'type': 'Blouse',
+      'color': 'White',
+      'material': 'Silk',
+      'pattern': 'Solid',
+      'style': 'Elegant',
+      'fit': 'Loose',
+      'description': 'An elegant white silk blouse with a flowing fit.',
+      'imageUrl': 'image/item/rcma3.png',
+    },
+
+    // Trousers & Shorts
+    {
+      'type': 'Trouser',
+      'color': 'Khaki',
+      'material': 'Cotton',
+      'pattern': 'Solid',
+      'style': 'Casual',
+      'fit': 'Regular',
+      'description': 'Comfortable khaki cotton trousers for a relaxed look.',
+      'imageUrl': 'image/item/rcmq1.png',
+    },
+    {
+      'type': 'Short',
+      'color': 'Black',
+      'material': 'Wool',
+      'pattern': 'Solid',
+      'style': 'Formal',
+      'fit': 'Slim',
+      'description': 'Slim-fit gray wool short for formal occasions.',
+      'imageUrl': 'image/item/rcmq2.png',
+    },
+    {
+      'type': 'Trouser',
+      'color': 'Black',
+      'material': 'Linen',
+      'pattern': 'Solid',
+      'style': 'Casual',
+      'fit': 'Regular',
+      'description': 'Classic trouser for a casual summer style.',
+      'imageUrl': 'image/item/rcmq3.png',
+    },
+    {
+      'type': 'Short',
+      'color': 'White',
+      'material': 'Polyester',
+      'pattern': 'Solid',
+      'style': 'Sporty',
+      'fit': 'Regular',
+      'description': 'Sporty with track short made from lightweight polyester.',
+      'imageUrl': 'image/item/rcmq4.png',
+    },
+
+    // Dresses
+    {
+      'type': 'Dress',
+      'color': 'Blue',
+      'material': 'Chiffon',
+      'pattern': 'Floral',
+      'style': 'Bohemian',
+      'fit': 'Flowy',
+      'description':
+          'A beautiful blue floral chiffon dress with a bohemian vibe.',
+      'imageUrl': 'image/item/rcmv.png',
+    },
+
+    // Shoes
+    {
+      'type': 'Shoes',
+      'color': 'White',
+      'material': 'Leather',
+      'pattern': 'Solid',
+      'style': 'Sneaker',
+      'fit': 'Regular',
+      'description':
+          'Classic white leather sneakers for a clean, timeless look.',
+      'imageUrl': 'image/item/rcmg.png',
+    },
+    {
+      'type': 'Shoes',
+      'color': 'Black',
+      'material': 'Leather',
+      'pattern': 'Solid',
+      'style': 'Formal',
+      'fit': 'Regular',
+      'description': 'Elegant black leather formal shoes.',
+      'imageUrl': 'image/item/rcmg1.png',
+    },
+    {
+      'type': 'Shoes',
+      'color': 'Brown',
+      'material': 'Suede',
+      'pattern': 'Solid',
+      'style': 'Loafer',
+      'fit': 'Regular',
+      'description': 'Comfortable brown suede loafers for a smart-casual look.',
+      'imageUrl': 'image/item/rcmg2.png',
+    },
+    {
+      'type': 'Shoes',
+      'color': 'Gray',
+      'material': 'Canvas',
+      'pattern': 'Solid',
+      'style': 'Casual',
+      'fit': 'Regular',
+      'description': 'Versatile gray canvas sneakers for everyday use.',
+      'imageUrl': 'image/item/rcmg3.png',
+    },
+  ];
+
   String CurrentDateManual() {
     DateTime now = DateTime.now();
 
@@ -197,7 +393,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     flex: 4,
                     child: _buildStatCard(
                       'Wardrobe',
-                      '80',
+                      _allItems.length.toString(),
                       'Items',
                       Icons.checkroom,
                     ),
@@ -241,13 +437,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(height: 8),
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
+                              onTap: () async {
+                                final newItem = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => const ScanScreen(),
                                   ),
                                 );
+                                if (newItem != null &&
+                                    newItem is Map<String, String>) {
+                                  setState(() {
+                                    _allItems.add(newItem);
+                                  });
+                                }
                               },
                               child: Container(
                                 width: double.infinity,
@@ -403,7 +605,9 @@ class _HomeScreenState extends State<HomeScreen> {
         if (title == 'Wardrobe') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const WardrobeScreen()),
+            MaterialPageRoute(
+              builder: (context) => WardrobeScreen(allItems: _allItems),
+            ),
           );
         }
       },

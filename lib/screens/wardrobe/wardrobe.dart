@@ -5,7 +5,8 @@ import 'package:fitsnap/navbar.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 class WardrobeScreen extends StatefulWidget {
-  const WardrobeScreen({super.key});
+  final List<Map<String, String>> allItems;
+  const WardrobeScreen({super.key, required this.allItems});
 
   @override
   State<WardrobeScreen> createState() => WardrobeScreenState();
@@ -22,6 +23,7 @@ class WardrobeScreenState extends State<WardrobeScreen> {
     {'icon': Symbols.shopping_bag, 'label': 'Jacket', 'type': 'Jacket'},
     {'icon': Symbols.ac_unit, 'label': 'Sweater', 'type': 'Sweater'},
     {'icon': Symbols.checkroom, 'label': 'T-shirt', 'type': 'T-shirt'},
+    {'icon': Symbols.checkroom, 'label': 'Shirt', 'type': 'Shirt'},
     {'icon': Symbols.woman, 'label': 'Blouse', 'type': 'Blouse'},
     {'icon': Symbols.trending_flat, 'label': 'Trouser', 'type': 'Trouser'},
     {'icon': Symbols.dry_cleaning, 'label': 'Dress', 'type': 'Dress'},
@@ -34,113 +36,6 @@ class WardrobeScreenState extends State<WardrobeScreen> {
     {'icon': Symbols.apparel, 'label': 'Polo', 'type': 'Polo Shirt'},
     // 👇 THÊM GIÀY
     {'icon': Symbols.footprint, 'label': 'Shoes', 'type': 'Shoes'},
-  ];
-
-  // Mock dữ liệu tất cả đồ, gồm các type bạn muốn (ĐÃ THÊM MẪU CHO GIÀY VÀ ÁO POLO)
-  final List<Map<String, String>> allItems = [
-    {
-      'type': 'Jacket',
-      'color': 'Black',
-      'material': 'Cotton',
-      'pattern': 'Solid',
-      'style': 'Casual',
-      'fit': 'Regular',
-      'description': 'Classic denim jacket.',
-      'imageUrl': 'image/item/item_1.png',
-    },
-    {
-      'type': 'Sweater',
-      'color': 'Navy Blue',
-      'material': 'Wool',
-      'pattern': 'Striped',
-      'style': 'Preppy',
-      'fit': 'Slim',
-      'description': 'Soft wool sweater.',
-      'imageUrl': 'image/item/item_2.png',
-    },
-    {
-      'type': 'T-shirt',
-      'color': 'White',
-      'material': 'Cotton',
-      'pattern': 'Solid',
-      'style': 'Minimalist',
-      'fit': 'Regular',
-      'description': 'Basic white t-shirt.',
-      'imageUrl': 'image/item/item_3.png',
-    },
-    {
-      'type': 'Blouse',
-      'color': 'Pink',
-      'material': 'Silk',
-      'pattern': 'Floral',
-      'style': 'Elegant',
-      'fit': 'Relaxed',
-      'description': 'Light floral blouse.',
-      'imageUrl': 'image/item/item_4.png',
-    },
-    {
-      'type': 'Trouser',
-      'color': 'Gray',
-      'material': 'Cotton',
-      'pattern': 'Solid',
-      'style': 'Formal',
-      'fit': 'Regular',
-      'description': 'Office trousers.',
-      'imageUrl': 'image/item/item_5.png',
-    },
-    {
-      'type': 'Dress',
-      'color': 'Red',
-      'material': 'Silk',
-      'pattern': 'Polka Dot',
-      'style': 'Party',
-      'fit': 'Slim',
-      'description': 'Red polka dot dress.',
-      'imageUrl': 'image/item/item_6.png',
-    },
-    {
-      'type': 'Short',
-      'color': 'Denim',
-      'material': 'Denim',
-      'pattern': 'Solid',
-      'style': 'Casual',
-      'fit': 'Loose',
-      'description': 'Denim shorts for summer.',
-      'imageUrl': 'image/item/item_7.png',
-    },
-    // 👇 THÊM ÁO POLO MẪU 1
-    {
-      'type': 'Polo Shirt',
-      'color': 'Green',
-      'material': 'Pique',
-      'pattern': 'Solid',
-      'style': 'Sporty',
-      'fit': 'Regular',
-      'description': 'Classic green polo shirt.',
-      'imageUrl': 'image/item/item_polo_1.png',
-    },
-    // 👇 THÊM GIÀY MẪU 1
-    {
-      'type': 'Shoes',
-      'color': 'White',
-      'material': 'Leather',
-      'pattern': 'Solid',
-      'style': 'Sneaker',
-      'fit': 'Regular',
-      'description': 'White leather sneakers.',
-      'imageUrl': 'image/item/item_shoes_1.png',
-    },
-    // 👇 THÊM GIÀY MẪU 2 (để có 2 item cho category Giày)
-    {
-      'type': 'Shoes',
-      'color': 'Brown',
-      'material': 'Suede',
-      'pattern': 'Solid',
-      'style': 'Loafer',
-      'fit': 'Regular',
-      'description': 'Brown suede loafers.',
-      'imageUrl': 'image/item/item_shoes_2.png',
-    },
   ];
 
   String selectedType = "Jacket";
@@ -314,7 +209,7 @@ class WardrobeScreenState extends State<WardrobeScreen> {
   }
 
   Widget _buildFilteredItemsList() {
-    final filteredItems = allItems
+    final filteredItems = widget.allItems
         .where((item) => item['type'] == selectedType)
         .toList();
 
